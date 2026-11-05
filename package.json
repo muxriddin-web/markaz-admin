@@ -1,0 +1,1 @@
+{"name":"markaz-admin","version":"1.0.0","private":true,"description":"O'quv markazi admin paneli (Netlify + MongoDB Atlas)","dependencies":{"mongodb":"^6.8.0"},"engines":{"node":">=18"}}
