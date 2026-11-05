@@ -14,7 +14,7 @@ body{background:var(--bg);color:var(--text);transition:.3s;overflow-x:hidden}
 .menu{padding:20px}.menu a{display:flex;align-items:center;gap:15px;color:#fff;padding:14px;margin-bottom:10px;border-radius:15px;transition:.3s;cursor:pointer;font-size:14px;white-space:nowrap}
 .menu a:hover{background:rgba(255,255,255,.08)}.menu a.active{background:var(--primary)}.menu i{font-size:18px;width:25px;text-align:center}
 .content{margin-left:270px;transition:.3s;min-height:100vh}.content.full{margin-left:85px}
-.navbar{height:80px;background:color-mix(in srgb,var(--card) 70%,transparent);backdrop-filter:blur(18px);display:flex;justify-content:space-between;align-items:center;padding:0 35px;box-shadow:var(--shadow);position:sticky;top:0;z-index:50}
+.navbar{height:80px;background:var(--card);background:color-mix(in srgb,var(--card) 70%,transparent);backdrop-filter:blur(18px);display:flex;justify-content:space-between;align-items:center;padding:0 35px;box-shadow:var(--shadow);position:sticky;top:0;z-index:50}
 .row{display:flex;align-items:center;gap:15px}.circle{width:45px;height:45px;border-radius:50%;background:var(--card);display:flex;justify-content:center;align-items:center;cursor:pointer;box-shadow:var(--shadow);border:0;color:var(--text);font-size:16px}
 .main{padding:35px}.section{display:none}.section.active{display:block}
 .title{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;flex-wrap:wrap;gap:15px}.title h1{font-size:26px}
@@ -46,8 +46,39 @@ label{font-size:13px;font-weight:600;margin-top:10px;display:block}
 .atabs{display:flex;background:#f1f5f9;border-radius:14px;padding:4px;margin-bottom:12px}.atabs button{flex:1;border:0;background:none;padding:10px;border-radius:11px;font-weight:600;cursor:pointer;color:#64748b;font-size:14px}.atabs button.on{background:#fff;color:#4f46e5;box-shadow:0 2px 8px rgba(0,0,0,.08)}
 .auth-box label{color:#111827}.me{font-size:13px;color:var(--mut);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 @media(max-width:950px){.grid{grid-template-columns:1fr}}
-@media(max-width:768px){.sidebar,.sidebar.close{inset:auto 0 0 0;width:100%;height:calc(66px + env(safe-area-inset-bottom,0px));padding-bottom:env(safe-area-inset-bottom,0px);background:color-mix(in srgb,#111827 94%,transparent);backdrop-filter:blur(18px);border-radius:22px 22px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.18)}.logo{display:none}.sidebar .menu{display:flex;padding:7px 8px;gap:4px}.sidebar .menu a{flex:1;flex-direction:column;gap:3px;margin:0;padding:8px 2px;font-size:10.5px;border-radius:14px;justify-content:center;text-align:center}.sidebar.close .lbl,.lbl{display:block}.menu i{font-size:19px;width:auto}#toggle,.me{display:none}.content,.content.full{margin-left:0}.navbar{padding:0 15px}.main{padding:18px 18px calc(92px + env(safe-area-inset-bottom,0px))}.r2{grid-template-columns:1fr}.toast{bottom:calc(84px + env(safe-area-inset-bottom,0px));left:15px;right:15px;text-align:center}}
-/* ===== MOBIL MOSLASHUVCHANLIK TUZATISHI (shu blok </style> dan oldin turadi) ===== */
+/* ===== MOBIL MOSLASHUVCHANLIK ===== */
+body.dark{color-scheme:dark}
+.content{min-width:0;max-width:100%;overflow-x:clip}
+.navbar{-webkit-backdrop-filter:blur(18px)}
+.grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid>*,.box,.card{min-width:0;max-width:100%}
+.tw{max-width:100%;-webkit-overflow-scrolling:touch}
+@media(max-width:950px){.grid{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:768px){
+ .sidebar,.sidebar.close{position:fixed;inset:auto 0 0 0;width:100%;height:calc(66px + env(safe-area-inset-bottom,0px));padding-bottom:env(safe-area-inset-bottom,0px);background:#111827;background:color-mix(in srgb,#111827 94%,transparent);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border-radius:22px 22px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.18);transform:translateZ(0);z-index:100}
+ .logo,#toggle,.me{display:none}
+ .sidebar .menu{display:flex;padding:7px 6px;gap:2px}
+ .sidebar .menu a{flex:1 1 0;min-width:0;flex-direction:column;gap:3px;margin:0;padding:8px 2px;font-size:10.5px;border-radius:14px;justify-content:center;text-align:center}
+ .sidebar .lbl,.sidebar.close .lbl{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .menu i{font-size:19px;width:auto}
+ .navbar{position:fixed;top:0;left:0;right:0;width:100%;height:calc(64px + env(safe-area-inset-top,0px));padding:env(safe-area-inset-top,0px) 14px 0;z-index:90}
+ .content,.content.full{margin-left:0;padding-top:calc(64px + env(safe-area-inset-top,0px))}
+ .main{padding:16px 14px calc(94px + env(safe-area-inset-bottom,0px))}
+ .title{margin-bottom:16px}.title h1{font-size:21px}
+ .cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:18px}
+ .card{padding:16px;border-radius:18px}.card h4{font-size:12px}.card h2{font-size:17px;overflow-wrap:anywhere}.card .icon{font-size:28px}
+ .box{padding:16px;border-radius:16px;margin-bottom:18px}.box h2{font-size:16px}
+ th,td{padding:10px 8px;font-size:12.5px}
+ .chart{height:260px}
+ .fb{gap:10px}.fb select,.fb input{flex:1 1 100%;width:100%;min-width:0}
+ .mbox input,.mbox select,.mbox textarea,.fb input,.fb select,.auth-box input{font-size:16px}
+ .modal{padding:10px}.mbox,.mbox.wide{padding:20px;border-radius:18px;max-height:calc(100vh - 20px);max-height:calc(100dvh - 20px)}
+ .auth-box{padding:26px 20px}
+ .mb{flex-wrap:wrap}.mb .btn{flex:1;justify-content:center}
+ .toast{bottom:calc(84px + env(safe-area-inset-bottom,0px));left:15px;right:15px;text-align:center}
+}
+@media(max-width:419px){.cards{grid-template-columns:minmax(0,1fr)}.sidebar .menu a{font-size:9.5px}.menu i{font-size:17px}.circle{width:40px;height:40px}}
+</style> dan oldin turadi) ===== */
 html,body{max-width:100%;overflow-x:hidden;overflow-x:clip;-webkit-text-size-adjust:100%}
 body{min-height:100vh;min-height:100dvh}
 .content{min-width:0;max-width:100%;overflow-x:hidden;overflow-x:clip;min-height:100vh;min-height:100dvh}
@@ -88,7 +119,7 @@ body{min-height:100vh;min-height:100dvh}
 <div class="menu" id="menu">
 <a class="active" data-s="dash"><i class="fa-solid fa-chart-pie"></i><span class="lbl">Dashboard</span></a>
 <a data-s="students"><i class="fa-solid fa-user-graduate"></i><span class="lbl">O'quvchilar</span></a>
-<a data-s="groups"><i class="fa-solid fa-people-group"></i><span class="lbl">Guruhlar soni</span></a>
+<a data-s="groups"><i class="fa-solid fa-people-group"></i><span class="lbl">Guruhlar</span></a>
 <a data-s="pay"><i class="fa-solid fa-wallet"></i><span class="lbl">To'lovlar</span></a>
 <a data-s="stats"><i class="fa-solid fa-chart-column"></i><span class="lbl">Statistika</span></a></div></div>
 
@@ -98,6 +129,7 @@ body{min-height:100vh;min-height:100dvh}
 <div class="main">
 
 <div class="section active" id="dash">
+<div class="title"><h1>Dashboard</h1><button class="btn gray" onclick="backup()"><i class="fa-solid fa-download"></i> Zaxira nusxa</button></div>
 <div class="cards">
 <div class="card"><h4>Jami o'quvchilar</h4><h2 id="cStu">0</h2><i class="fa-solid fa-user-graduate icon"></i></div>
 <div class="card"><h4>Guruhlar</h4><h2 id="cGrp">0</h2><i class="fa-solid fa-people-group icon"></i></div>
@@ -117,8 +149,8 @@ body{min-height:100vh;min-height:100dvh}
 <div class="box"><h2>Guruhlar (filial · yo'nalish · davra · vaqt)</h2><div class="tw"><table><thead><tr><th>Filial</th><th>Yo'nalish</th><th>Davra</th><th>Vaqt</th><th>Soni</th><th>O'quvchilar</th></tr></thead><tbody id="tGrp"></tbody></table></div></div></div>
 
 <div class="section" id="pay">
-<div class="title"><h1>To'lovlar va hisob-kitob</h1><button class="btn" onclick="openPay()"><i class="fa-solid fa-plus"></i> To'lov kiritish</button></div>
-<div class="fb"><input type="month" id="pM" onchange="rPay()"><select id="pB" onchange="rPay()"></select><select id="pC" onchange="rPay()"></select><select id="pS" onchange="rPay()"><option value="">Barcha holat</option><option value="paid">To'liq to'langan</option><option value="part">Qisman</option><option value="debt">To'lamagan</option></select></div>
+<div class="title"><h1>To'lovlar va hisob-kitob</h1><div class="row" style="flex-wrap:wrap"><button class="btn gray" onclick="csvPay()"><i class="fa-solid fa-file-csv"></i> Excel (CSV)</button><button class="btn" onclick="openPay()"><i class="fa-solid fa-plus"></i> To'lov kiritish</button></div></div>
+<div class="fb"><input type="month" placeholder="YYYY-MM" id="pM" onchange="rPay()"><select id="pB" onchange="rPay()"></select><select id="pC" onchange="rPay()"></select><select id="pS" onchange="rPay()"><option value="">Barcha holat</option><option value="paid">To'liq to'langan</option><option value="part">Qisman</option><option value="debt">To'lamagan</option></select></div>
 <div class="cards"><div class="card"><h4>Kutilgan summa</h4><h2 id="pExp">0</h2></div><div class="card"><h4>To'langan</h4><h2 id="pPaid" class="ok">0</h2></div><div class="card"><h4>Shu oy qarzi</h4><h2 id="pDebt" class="bad">0</h2></div></div>
 <div class="box"><div class="tw"><table><thead><tr><th>O'quvchi</th><th>Kurs</th><th>Filial</th><th>Oylik</th><th>To'langan</th><th>Qarz</th><th>Oxirgi sana</th><th>Holat</th><th></th></tr></thead><tbody id="tPay"></tbody></table></div></div></div>
 
@@ -128,17 +160,17 @@ body{min-height:100vh;min-height:100dvh}
 <div class="box"><h2>Kutilgan va haqiqiy tushum (so'm)</h2><div class="chart"><canvas id="ch2"></canvas></div></div></div>
 </div></div>
 
-<div class="modal" id="mStu"><div class="mbox"><h2>Yangi o'quvchi</h2>
+<div class="modal" id="mStu"><div class="mbox"><h2 id="sTitle">Yangi o'quvchi</h2>
 <label>F.I.O (ism familiya) *</label><input id="sName2" placeholder="Masalan: Anvarov Jasur">
-<div class="r2"><div><label>Yo'nalish</label><select id="sCourse" onchange="$('sFee').value=CFG.courses[this.value]"></select></div><div><label>Filial</label><select id="sBranch"></select></div>
+<div class="r2"><div><label>Yo'nalish</label><select id="sCourse" onchange="if(!editId)$('sFee').value=CFG.courses[this.value]"></select></div><div><label>Filial</label><select id="sBranch"></select></div>
 <div><label>Davra</label><select id="sPeriod"></select></div><div><label>Dars vaqti</label><select id="sTime"></select></div>
 <div><label>Telefon *</label><input id="sPhone" placeholder="+998 90 123 45 67"></div><div><label>Oylik to'lov (so'm)</label><input id="sFee" type="number" min="0" step="1000"></div></div>
-<label>Boshlagan oy</label><input id="sStart" type="month"><label>Tavsif (ixtiyoriy)</label><textarea id="sDesc" rows="2"></textarea>
+<label>Boshlagan oy</label><input id="sStart" type="month" placeholder="YYYY-MM"><label>Tavsif (ixtiyoriy)</label><textarea id="sDesc" rows="2"></textarea>
 <div class="err" id="sErr"></div><div class="mb"><button class="btn gray" onclick="closeM('mStu')">Bekor qilish</button><button class="btn" onclick="addStu()">Saqlash</button></div></div></div>
 
 <div class="modal" id="mPay"><div class="mbox"><h2>To'lov kiritish</h2>
 <label>O'quvchi</label><select id="yS" onchange="payHint()"></select>
-<div class="r2"><div><label>Qaysi oy uchun</label><input type="month" id="yM" onchange="payHint()"></div><div><label>To'lov sanasi</label><input type="date" id="yD"></div></div>
+<div class="r2"><div><label>Qaysi oy uchun</label><input type="month" placeholder="YYYY-MM" id="yM" onchange="payHint()"></div><div><label>To'lov sanasi</label><input type="date" id="yD"></div></div>
 <label>Summa (so'm)</label><input type="number" id="yA" min="1" step="1000"><div class="hint" id="yH"></div>
 <div class="err" id="yE"></div><div class="mb"><button class="btn gray" onclick="closeM('mPay')">Bekor qilish</button><button class="btn green" onclick="addPay()">Saqlash</button></div></div></div>
 
@@ -211,22 +243,31 @@ const openM=id=>$(id).classList.add("show"),closeM=id=>$(id).classList.remove("s
 document.querySelectorAll(".modal").forEach(m=>m.addEventListener("mousedown",e=>e.target===m&&m.classList.remove("show")));
 
 /* ===== O'QUVCHILAR ===== */
-function openStu(){["sName2","sPhone","sDesc"].forEach(i=>$(i).value="");$("sCourse").selectedIndex=0;$("sFee").value=CFG.courses[$("sCourse").value];$("sStart").value=NOW;$("sErr").textContent="";openM("mStu");$("sName2").focus()}
-function addStu(){const name=$("sName2").value.trim().replace(/\s+/g," "),phone=$("sPhone").value.trim(),fee=Number($("sFee").value),start=$("sStart").value;
+let editId=null;
+const setSel=(id,v)=>{const e=$(id);if(![...e.options].some(o=>o.value===v))e.add(new Option(v,v));e.value=v};
+function openStu(id){editId=id||null;const s=id&&S.find(x=>x.id===id);
+ $("sTitle").textContent=s?"O'quvchini tahrirlash":"Yangi o'quvchi";
+ $("sName2").value=s?s.name:"";$("sPhone").value=s?s.phone:"";$("sDesc").value=s?s.desc:"";
+ setSel("sCourse",s?s.course:Object.keys(CFG.courses)[0]);setSel("sBranch",s?s.branch:CFG.branches[0]);setSel("sPeriod",s?s.period:CFG.periods[0]);setSel("sTime",s?s.time:CFG.times[0]);
+ $("sFee").value=s?s.fee:CFG.courses[$("sCourse").value];$("sStart").value=s?s.start:NOW;$("sStart").disabled=!!s;$("sErr").textContent="";openM("mStu");$("sName2").focus()}
+function addStu(){const s0=editId&&S.find(x=>x.id===editId),name=$("sName2").value.trim().replace(/\s+/g," "),phone=$("sPhone").value.trim(),fee=Number($("sFee").value),start=s0?s0.start:$("sStart").value;
  const er=m=>$("sErr").textContent=m;
  if(name.length<3)return er("Ism familiyani to'liq kiriting!");
  if(!/^\+?[\d\s()-]{9,18}$/.test(phone))return er("Telefon raqami noto'g'ri!");
  if(!(fee>=0)||$("sFee").value==="")return er("Oylik to'lov summasini kiriting!");
  if(!/^\d{4}-\d{2}$/.test(start)||start>NOW)return er("Boshlagan oy noto'g'ri (kelajakdagi oy bo'lmaydi)!");
- if(S.some(s=>s.name.toLowerCase()===name.toLowerCase()&&s.phone===phone))return er("Bunday o'quvchi allaqachon mavjud!");
- S.push({id:Date.now()+Math.floor(Math.random()*1000),name,phone,fee,start,course:$("sCourse").value,branch:$("sBranch").value,period:$("sPeriod").value,time:$("sTime").value,desc:$("sDesc").value.trim()});
+ if(S.some(s=>s.id!==editId&&s.name.toLowerCase()===name.toLowerCase()&&s.phone===phone))return er("Bunday o'quvchi allaqachon mavjud!");
+ const v={name,phone,fee,course:$("sCourse").value,branch:$("sBranch").value,period:$("sPeriod").value,time:$("sTime").value,desc:$("sDesc").value.trim()};
+ if(s0){if(fee!==s0.fee&&!confirm("Oylik summa o'zgarsa, o'quvchining BARCHA oylari hisobi yangi summaga qayta hisoblanadi.\nDavom etasizmi?"))return;
+  Object.assign(s0,v);save();closeM("mStu");render();return toast("O'zgarishlar saqlandi!")}
+ S.push({id:Date.now()+Math.floor(Math.random()*1000),start,...v});
  save();closeM("mStu");render();toast("O'quvchi qo'shildi!")}
 function delStu(id){const s=S.find(x=>x.id===id);if(!s)return;
  if(!confirm(`"${s.name}" guruhdan va tizimdan butunlay o'chiriladi.\nUning barcha shaxsiy ma'lumotlari va to'lovlari qaytarib bo'lmaydigan tarzda o'chadi!\n\nDavom etasizmi?`))return;
  S=S.filter(x=>x.id!==id);P=P.filter(p=>p.sid!==id);save();render();toast("O'quvchi va uning barcha ma'lumotlari o'chirildi")}
 function rStudents(){const q=$("fQ").value.toLowerCase().trim(),b=$("fB").value,c=$("fC").value;
  const f=S.filter(s=>(!q||s.name.toLowerCase().includes(q)||s.phone.includes(q))&&(!b||s.branch===b)&&(!c||s.course===c));
- $("tStu").innerHTML=f.length?f.map(s=>{const d=totalDebt(s);return`<tr><td><b>${esc(s.name)}</b></td><td><span class="tag">${esc(s.course)}</span></td><td>${esc(s.branch)}</td><td>${esc(s.period)}, ${esc(s.time)}</td><td>${esc(s.phone)}</td><td>${fmt(s.fee)}</td><td class="${d?"bad":"ok"}">${d?fmt(d):"Yo'q"}</td><td>${esc(s.desc)||"-"}</td><td><button class="btn sm" onclick="openLed(${s.id})" title="Hisob"><i class="fa-solid fa-receipt"></i></button> <button class="btn sm red" onclick="delStu(${s.id})" title="O'chirish"><i class="fa-solid fa-trash"></i></button></td></tr>`}).join(""):`<tr><td colspan="9" class="empty">O'quvchilar topilmadi</td></tr>`}
+ $("tStu").innerHTML=f.length?f.map(s=>{const d=totalDebt(s);return`<tr><td><b>${esc(s.name)}</b></td><td><span class="tag">${esc(s.course)}</span></td><td>${esc(s.branch)}</td><td>${esc(s.period)}, ${esc(s.time)}</td><td>${esc(s.phone)}</td><td>${fmt(s.fee)}</td><td class="${d?"bad":"ok"}">${d?fmt(d):"Yo'q"}</td><td>${esc(s.desc)||"-"}</td><td><button class="btn sm" onclick="openLed(${s.id})" title="Hisob"><i class="fa-solid fa-receipt"></i></button> <button class="btn sm gray" onclick="openStu(${s.id})" title="Tahrirlash"><i class="fa-solid fa-pen"></i></button> <button class="btn sm red" onclick="delStu(${s.id})" title="O'chirish"><i class="fa-solid fa-trash"></i></button></td></tr>`}).join(""):`<tr><td colspan="9" class="empty">O'quvchilar topilmadi</td></tr>`}
 
 /* ===== GURUHLAR ===== */
 let gBr="";
@@ -242,7 +283,7 @@ function rGroups(){const L=gBr?S.filter(s=>s.branch===gBr):S,g={};
 
 /* ===== TO'LOVLAR ===== */
 function rPay(){const m=$("pM").value||NOW,b=$("pB").value,c=$("pC").value,fs=$("pS").value;
- const rows=S.filter(s=>s.start<=m&&(!b||s.branch===b)&&(!c||s.course===c)).map(s=>{const pd=paid(s.id,m),l=P.filter(p=>p.sid===s.id&&p.month===m).map(p=>p.date).sort().pop();return{s,pd,debt:Math.max(0,s.fee-pd),l,st:stat(s.fee,pd)}}).filter(r=>!fs||r.st===fs);
+ const rows=S.filter(s=>s.start<=m&&(!b||s.branch===b)&&(!c||s.course===c)).map(s=>{const pd=paid(s.id,m),l=P.filter(p=>p.sid===s.id&&p.month===m).map(p=>p.date).sort().pop();return{s,pd,debt:Math.max(0,s.fee-pd),l,st:stat(s.fee,pd)}}).filter(r=>!fs||r.st===fs);PR=rows;PM=m;
  $("pExp").textContent=fmt(rows.reduce((a,r)=>a+r.s.fee,0));$("pPaid").textContent=fmt(rows.reduce((a,r)=>a+r.pd,0));$("pDebt").textContent=fmt(rows.reduce((a,r)=>a+r.debt,0));
  $("tPay").innerHTML=rows.length?rows.map(r=>`<tr><td><b>${esc(r.s.name)}</b></td><td>${esc(r.s.course)}</td><td>${esc(r.s.branch)}</td><td>${fmt(r.s.fee)}</td><td class="ok">${fmt(r.pd)}</td><td class="${r.debt?"bad":""}">${fmt(r.debt)}</td><td>${r.l||"-"}</td><td><span class="st ${r.st}">${STX[r.st]}</span></td><td><button class="btn sm green" onclick="openPay(${r.s.id},'${m}')" title="To'lov"><i class="fa-solid fa-plus"></i></button> <button class="btn sm" onclick="openLed(${r.s.id})" title="Hisob"><i class="fa-solid fa-receipt"></i></button></td></tr>`).join(""):`<tr><td colspan="9" class="empty">${ml(m)} uchun ma'lumot yo'q</td></tr>`}
 function openPay(sid,m){if(!S.length)return toast("Avval o'quvchi qo'shing!",1);
@@ -285,6 +326,13 @@ function rCharts(){if(!$("stats").classList.contains("active")||typeof Chart==="
  mk2("ch1",{type:"line",data:{labels:lab,datasets:[{label:"O'quvchilar soni",data:ms.map(x=>S.filter(s=>s.start<=x).length),borderColor:"#6366f1",backgroundColor:"rgba(99,102,241,.18)",fill:true,tension:.3}]}});
  mk2("ch2",{type:"bar",data:{labels:lab,datasets:[{label:"Kutilgan",data:ms.map(x=>S.filter(s=>s.start<=x).reduce((a,s)=>a+s.fee,0)),backgroundColor:"#94a3b8"},{label:"To'langan",data:ms.map(x=>P.filter(p=>p.month===x).reduce((a,p)=>a+p.amount,0)),backgroundColor:"#10b981"}]}})}
 
+let PR=[],PM=NOW;
+function dl(name,text,type){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+const cell=v=>{v=String(v??"");if(/^[=+\-@]/.test(v))v="'"+v;return'"'+v.replace(/"/g,'""')+'"'};
+function csvText(){const H=["F.I.O","Yo'nalish","Filial","Davra","Vaqt","Telefon","Oy","Oylik","To'langan","Qarz","Holat"];
+ return"\ufeff"+[H,...PR.map(r=>[r.s.name,r.s.course,r.s.branch,r.s.period,r.s.time,r.s.phone,ml(PM),r.s.fee,r.pd,r.debt,STX[r.st]])].map(a=>a.map(cell).join(";")).join("\r\n")}
+function csvPay(){if(!PR.length)return toast("Yuklash uchun ma'lumot yo'q",1);dl("tolovlar-"+PM+".csv",csvText(),"text/csv;charset=utf-8")}
+function backup(){dl("zaxira-"+today()+".json",JSON.stringify({exported:new Date().toISOString(),students:S,payments:P},null,1),"application/json")}
 function render(){rDash();rStudents();rGroups();rPay();rCharts()}
 $("fB").innerHTML=`<option value="">Barcha filiallar</option>`+opts(CFG.branches);$("pB").innerHTML=$("fB").innerHTML;
 $("fC").innerHTML=`<option value="">Barcha yo'nalishlar</option>`+opts(Object.keys(CFG.courses));$("pC").innerHTML=$("fC").innerHTML;
