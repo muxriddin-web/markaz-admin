@@ -47,6 +47,33 @@ label{font-size:13px;font-weight:600;margin-top:10px;display:block}
 .auth-box label{color:#111827}.me{font-size:13px;color:var(--mut);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 @media(max-width:950px){.grid{grid-template-columns:1fr}}
 @media(max-width:768px){.sidebar,.sidebar.close{inset:auto 0 0 0;width:100%;height:calc(66px + env(safe-area-inset-bottom,0px));padding-bottom:env(safe-area-inset-bottom,0px);background:color-mix(in srgb,#111827 94%,transparent);backdrop-filter:blur(18px);border-radius:22px 22px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.18)}.logo{display:none}.sidebar .menu{display:flex;padding:7px 8px;gap:4px}.sidebar .menu a{flex:1;flex-direction:column;gap:3px;margin:0;padding:8px 2px;font-size:10.5px;border-radius:14px;justify-content:center;text-align:center}.sidebar.close .lbl,.lbl{display:block}.menu i{font-size:19px;width:auto}#toggle,.me{display:none}.content,.content.full{margin-left:0}.navbar{padding:0 15px}.main{padding:18px 18px calc(92px + env(safe-area-inset-bottom,0px))}.r2{grid-template-columns:1fr}.toast{bottom:calc(84px + env(safe-area-inset-bottom,0px));left:15px;right:15px;text-align:center}}
+/* ===== MOBIL MOSLASHUVCHANLIK TUZATISHI (shu blok </style> dan oldin turadi) ===== */
+html,body{max-width:100%;overflow-x:hidden;overflow-x:clip;-webkit-text-size-adjust:100%}
+body{min-height:100vh;min-height:100dvh}
+.content{min-width:0;max-width:100%;overflow-x:hidden;overflow-x:clip;min-height:100vh;min-height:100dvh}
+.navbar{-webkit-backdrop-filter:blur(18px)}
+.grid>*,.box,.card{min-width:0;max-width:100%}
+.grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.tw{max-width:100%;-webkit-overflow-scrolling:touch}
+@media(max-width:950px){.grid{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:768px){
+ .navbar{position:fixed;top:0;left:0;right:0;width:100%;height:calc(64px + env(safe-area-inset-top,0px));padding:env(safe-area-inset-top,0px) 14px 0;background:var(--card);background:color-mix(in srgb,var(--card) 94%,transparent);z-index:90}
+ .content,.content.full{margin-left:0;padding-top:calc(64px + env(safe-area-inset-top,0px))}
+ .sidebar,.sidebar.close{position:fixed;top:auto;left:0;right:0;bottom:0;width:100%;transform:translateZ(0);-webkit-backdrop-filter:blur(18px);z-index:100}
+ .main{padding:16px 14px calc(94px + env(safe-area-inset-bottom,0px))}
+ .title{margin-bottom:16px}.title h1{font-size:21px}
+ .cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:18px}
+ .card{padding:16px;border-radius:18px}.card h4{font-size:12px}.card h2{font-size:17px;overflow-wrap:anywhere}.card .icon{font-size:28px}
+ .box{padding:16px;border-radius:16px;margin-bottom:18px}.box h2{font-size:16px}
+ th,td{padding:10px 8px;font-size:12.5px}
+ .chart{height:260px}
+ .fb{gap:10px}.fb select,.fb input{flex:1 1 100%;width:100%;min-width:0}
+ .mbox input,.mbox select,.mbox textarea,.fb input,.fb select,.auth-box input{font-size:16px}
+ .modal{padding:10px}.mbox,.mbox.wide{padding:20px;border-radius:18px;max-height:calc(100vh - 20px);max-height:calc(100dvh - 20px)}
+ .auth-box{padding:26px 20px}
+ .mb{flex-wrap:wrap}.mb .btn{flex:1;justify-content:center}
+}
+@media(max-width:419px){.cards{grid-template-columns:minmax(0,1fr)}.sidebar .menu a{font-size:9.5px}.menu i{font-size:17px}.circle{width:40px;height:40px}}
 </style></head><body>
 
 <div class="auth" id="auth"><div class="auth-box">
