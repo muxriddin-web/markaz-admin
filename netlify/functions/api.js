@@ -17,10 +17,10 @@ const str = (v, n) => String(v ?? "").slice(0, n), num = v => Number.isFinite(+v
 const cs = s => {
   const start = MK.test(s.start) ? s.start : "2000-01", fee = Math.max(0, num(s.fee));
   const fees = (Array.isArray(s.fees) ? s.fees : []).slice(0, 120).map(x => ({ from: MK.test(x && x.from) ? x.from : start, fee: Math.max(0, num(x && x.fee)) })).sort((p, q) => p.from.localeCompare(q.from));
-  return { id: num(s.id), name: str(s.name, 100), phone: str(s.phone, 30), fee, fees: fees.length ? fees : [{ from: start, fee }], start, course: str(s.course, 60), branch: str(s.branch, 40), period: str(s.period, 20), time: str(s.time, 10), desc: str(s.desc, 500) };
+  return { id: num(s.id), name: str(s.name, 100), phone: str(s.phone, 30), fee, fees: fees.length ? fees : [{ from: start, fee }], start, bstart: MK.test(s.bstart) ? s.bstart : "", course: str(s.course, 60), branch: str(s.branch, 40), period: str(s.period, 20), time: str(s.time, 10), desc: str(s.desc, 500) };
 };
 const cp = p => ({ id: num(p.id), sid: num(p.sid), month: MK.test(p.month) ? p.month : "2000-01", amount: Math.max(0, Math.round(num(p.amount))), date: str(p.date, 10) });
-const snap = u => ({ students: u.students, payments: u.payments, version: u.version });
+const snap = u => ({ students: u.students, payments: u.payments, groups: u.groups || [], version: u.version });
 
 exports.handler = async (event) => {
   try {
@@ -62,7 +62,9 @@ exports.handler = async (event) => {
       const b = body();
       if (!b || !Array.isArray(b.students) || !Array.isArray(b.payments) || !Number.isInteger(b.version) || b.students.length > 20000 || b.payments.length > 100000) return send(400, { error: "Noto'g'ri ma'lumot" });
       const st = b.students.map(cs), ids = new Set(st.map(x => x.id)), pay = b.payments.map(cp).filter(p => ids.has(p.sid) && p.amount > 0);
-      const r = await Users.updateOne({ _id: s.login, version: b.version }, { $set: { students: st, payments: pay }, $inc: { version: 1 } });
+      const set = { students: st, payments: pay };
+      if (Array.isArray(b.groups)) set.groups = b.groups.slice(0, 5000).map(g => ({ key: str(g && g.key, 200), start: MK.test(g && g.start) ? g.start : "" }));
+      const r = await Users.updateOne({ _id: s.login, version: b.version }, { $set: set, $inc: { version: 1 } });
       if (!r.matchedCount) { const u = await Users.findOne({ _id: s.login }); return send(409, snap(u)); }
       return send(200, { version: b.version + 1 });
     }
