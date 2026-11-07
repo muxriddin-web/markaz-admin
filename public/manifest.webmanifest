@@ -1,0 +1,32 @@
+{
+ "name": "O'quv Markazi Admin Paneli",
+ "short_name": "Markaz",
+ "description": "O'quv markazi: o'quvchilar, guruhlar va to'lovlar hisobi",
+ "start_url": "/",
+ "scope": "/",
+ "display": "standalone",
+ "orientation": "portrait",
+ "background_color": "#eef2ff",
+ "theme_color": "#6366f1",
+ "lang": "uz",
+ "icons": [
+  {
+   "src": "/icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "/icon-maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}

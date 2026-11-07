@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="uz"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Idealpromax Admin Paneli</title>
+<title>O'quv Markazi Admin Paneli</title>
+<link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#6366f1"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Markaz"><meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
 <style>
@@ -114,7 +115,7 @@ body.dark{color-scheme:dark}
 
 <div class="content" id="content">
 <div class="navbar"><div class="row"><button class="circle" id="toggle"><i class="fa-solid fa-bars"></i></button><b id="pageTitle">Dashboard</b></div>
-<div class="row"><span class="me" id="me"></span><button class="circle" id="theme" title="Mavzu"><i class="fa-solid fa-moon"></i></button><button class="circle" onclick="logout()" title="Chiqish"><i class="fa-solid fa-right-from-bracket"></i></button></div></div>
+<div class="row"><span class="me" id="me"></span><button class="circle" id="inst" style="display:none" title="Ilovani o'rnatish"><i class="fa-solid fa-mobile-screen-button"></i></button><button class="circle" id="theme" title="Mavzu"><i class="fa-solid fa-moon"></i></button><button class="circle" onclick="logout()" title="Chiqish"><i class="fa-solid fa-right-from-bracket"></i></button></div></div>
 <div class="main">
 
 <div class="section active" id="dash">
@@ -175,7 +176,7 @@ body.dark{color-scheme:dark}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>
 /* ===== SOZLAMALAR — o'quv markaziga moslash shu yerda ===== */
-const CFG={center:"IDEALPROMAX",
+const CFG={center:"IT va Robototexnika Markazi",
 courses:{"Kompyuter savodxonligi":250000,"Dasturlash":350000,"Robototexnika":400000,"AI (Sun'iy intellekt)":450000},
 branches:["Parkent","52-maktab","7-maktab"],periods:["1-davra","2-davra"],times:["08:00","10:00","14:00","16:00"]};
 /* ========================================================= */
@@ -357,5 +358,10 @@ $("fB").innerHTML=`<option value="">Barcha filiallar</option>`+opts(CFG.branches
 $("fC").innerHTML=`<option value="">Barcha yo'nalishlar</option>`+opts(Object.keys(CFG.courses));$("pC").innerHTML=$("fC").innerHTML;
 $("sCourse").innerHTML=opts(Object.keys(CFG.courses));$("sBranch").innerHTML=opts(CFG.branches);$("sPeriod").innerHTML=opts(CFG.periods);$("sTime").innerHTML=opts(CFG.times);
 $("pM").value=NOW;["sCourse","sBranch","sPeriod","sTime"].forEach(i=>$(i).addEventListener("change",gInfoUpd));
+let DIP=null;
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();DIP=e;$("inst").style.display="flex"});
+$("inst").onclick=async()=>{if(!DIP)return;DIP.prompt();try{await DIP.userChoice}catch(e){}DIP=null;$("inst").style.display="none"};
+addEventListener("appinstalled",()=>{$("inst").style.display="none"});
+if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));
 render();if(TOK)enter().catch(()=>{});
 </script></body></html>
