@@ -328,7 +328,7 @@ function rCharts(){if(!$("stats").classList.contains("active")||typeof Chart==="
 
 let PR=[],PM=NOW;
 function dl(name,text,type){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
-const cell=v=>{v=String(v??"");if(/^[=+\-@]/.test(v))v="'"+v;return'"'+v.replace(/"/g,'""')+'"'};
+const cell=v=>{v=String(v??"");if(/^[=@]|^[+\-](?!\d)/.test(v))v="'"+v;return'"'+v.replace(/"/g,'""')+'"'};
 function csvText(){const H=["F.I.O","Yo'nalish","Filial","Davra","Vaqt","Telefon","Oy","Oylik","To'langan","Qarz","Holat"];
  return"\ufeff"+[H,...PR.map(r=>[r.s.name,r.s.course,r.s.branch,r.s.period,r.s.time,r.s.phone,ml(PM),r.s.fee,r.pd,r.debt,STX[r.st]])].map(a=>a.map(cell).join(";")).join("\r\n")}
 function csvPay(){if(!PR.length)return toast("Yuklash uchun ma'lumot yo'q",1);dl("tolovlar-"+PM+".csv",csvText(),"text/csv;charset=utf-8")}
