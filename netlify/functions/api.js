@@ -13,8 +13,12 @@ function db() {
 }
 const send = (c, o) => ({ statusCode: c, headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }, body: JSON.stringify(o) });
 const th = t => crypto.createHash("sha256").update(t).digest("hex");
-const str = (v, n) => String(v ?? "").slice(0, n), num = v => Number.isFinite(+v) ? +v : 0, MK = /^\d{4}-\d{2}$/;
-const cs = s => ({ id: num(s.id), name: str(s.name, 100), phone: str(s.phone, 30), fee: Math.max(0, num(s.fee)), start: MK.test(s.start) ? s.start : "2000-01", course: str(s.course, 60), branch: str(s.branch, 40), period: str(s.period, 20), time: str(s.time, 10), desc: str(s.desc, 500) });
+const str = (v, n) => String(v ?? "").slice(0, n), num = v => Number.isFinite(+v) ? +v : 0, MK = /^20\d{2}-(0[1-9]|1[0-2])$/;
+const cs = s => {
+  const start = MK.test(s.start) ? s.start : "2000-01", fee = Math.max(0, num(s.fee));
+  const fees = (Array.isArray(s.fees) ? s.fees : []).slice(0, 120).map(x => ({ from: MK.test(x && x.from) ? x.from : start, fee: Math.max(0, num(x && x.fee)) })).sort((p, q) => p.from.localeCompare(q.from));
+  return { id: num(s.id), name: str(s.name, 100), phone: str(s.phone, 30), fee, fees: fees.length ? fees : [{ from: start, fee }], start, course: str(s.course, 60), branch: str(s.branch, 40), period: str(s.period, 20), time: str(s.time, 10), desc: str(s.desc, 500) };
+};
 const cp = p => ({ id: num(p.id), sid: num(p.sid), month: MK.test(p.month) ? p.month : "2000-01", amount: Math.max(0, Math.round(num(p.amount))), date: str(p.date, 10) });
 const snap = u => ({ students: u.students, payments: u.payments, version: u.version });
 
