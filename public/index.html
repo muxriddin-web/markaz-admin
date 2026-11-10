@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="uz"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Idealpromax Admin Paneli</title>
+<title>O'quv Markazi Admin Paneli</title>
 <link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#6366f1"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Markaz"><meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
@@ -131,53 +131,60 @@ body.dark{color-scheme:dark}
 <div class="section" id="students">
 <div class="title"><h1>O'quvchilar</h1><button class="btn" onclick="openStu()"><i class="fa-solid fa-plus"></i> Yangi o'quvchi</button></div>
 <div class="box"><div class="fb"><input id="fQ" placeholder="Ism yoki telefon..." oninput="rStudents()"><select id="fB" onchange="rStudents()"></select><select id="fC" onchange="rStudents()"></select></div>
-<div class="tw"><table><thead><tr><th>F.I.O</th><th>Kurs</th><th>Filial</th><th>Davra / Vaqt</th><th>Telefon</th><th>Oylik</th><th>Qarz</th><th>Tavsif</th><th></th></tr></thead><tbody id="tStu"></tbody></table></div></div></div>
+<div class="tw"><table><thead><tr><th>F.I.O</th><th>Kurs</th><th>Filial</th><th>Davra / Vaqt</th><th>Telefon</th><th>Paket</th><th>Darslar</th><th>Qarz</th><th>Tavsif</th><th></th></tr></thead><tbody id="tStu"></tbody></table></div></div></div>
 
 <div class="section" id="groups">
 <div class="title"><h1>Guruhlar bo'yicha o'quvchilar soni</h1></div>
 <div class="box"><h2 id="gH">Umumiy taqsimot</h2><div id="chips"></div></div>
-<div class="box"><h2>Guruhlar (filial · yo'nalish · davra · vaqt)</h2><div class="tw"><table><thead><tr><th>Filial</th><th>Yo'nalish</th><th>Davra</th><th>Vaqt</th><th>Soni</th><th>Holat</th><th>O'quvchilar</th><th></th></tr></thead><tbody id="tGrp"></tbody></table></div></div></div>
+<div class="box"><h2>Guruhlar (filial · yo'nalish · davra · vaqt)</h2><div class="tw"><table><thead><tr><th>Filial</th><th>Yo'nalish</th><th>Davra</th><th>Vaqt</th><th>Soni</th><th>Darslar</th><th>Holat</th><th>O'quvchilar</th><th></th></tr></thead><tbody id="tGrp"></tbody></table></div></div></div>
 
 <div class="section" id="pay">
 <div class="title"><h1>To'lovlar va hisob-kitob</h1><div class="row" style="flex-wrap:wrap"><button class="btn gray" onclick="csvPay()"><i class="fa-solid fa-file-csv"></i> Excel (CSV)</button><button class="btn" onclick="openPay()"><i class="fa-solid fa-plus"></i> To'lov kiritish</button></div></div>
-<div class="fb"><input type="month" placeholder="YYYY-MM" id="pM" onchange="rPay()"><select id="pB" onchange="rPay()"></select><select id="pC" onchange="rPay()"></select><select id="pS" onchange="rPay()"><option value="">Barcha holat</option><option value="paid">To'liq to'langan</option><option value="part">Qisman</option><option value="debt">To'lamagan</option></select></div>
-<div class="cards"><div class="card"><h4>Kutilgan summa</h4><h2 id="pExp">0</h2></div><div class="card"><h4>To'langan</h4><h2 id="pPaid" class="ok">0</h2></div><div class="card"><h4>Shu oy qarzi</h4><h2 id="pDebt" class="bad">0</h2></div></div>
-<div class="box"><div class="tw"><table><thead><tr><th>O'quvchi</th><th>Kurs</th><th>Filial</th><th>Oylik</th><th>To'langan</th><th>Qarz</th><th>Oxirgi sana</th><th>Holat</th><th></th></tr></thead><tbody id="tPay"></tbody></table></div></div></div>
+<div class="fb"><select id="pB" onchange="rPay()"></select><select id="pC" onchange="rPay()"></select><select id="pS" onchange="rPay()"><option value="">Barcha holat</option><option value="paid">To'liq to'langan</option><option value="part">Qisman</option><option value="debt">To'lamagan</option><option value="nw">Dars boshlanmagan</option></select></div>
+<div class="cards"><div class="card"><h4>Hisoblangan summa</h4><h2 id="pExp">0</h2></div><div class="card"><h4>To'langan</h4><h2 id="pPaid" class="ok">0</h2></div><div class="card"><h4>Qarz</h4><h2 id="pDebt" class="bad">0</h2></div></div>
+<div class="box"><div class="tw"><table><thead><tr><th>O'quvchi</th><th>Kurs</th><th>Filial</th><th>Darslar</th><th>Hisoblangan</th><th>To'langan</th><th>Qarz</th><th>Oxirgi to'lov</th><th>Holat</th><th></th></tr></thead><tbody id="tPay"></tbody></table></div></div></div>
 
 <div class="section" id="stats">
 <div class="title"><h1>Statistika (oxirgi 12 oy)</h1></div>
-<div class="box"><h2>Oylar bo'yicha o'qiyotgan o'quvchilar soni</h2><div class="chart"><canvas id="ch1"></canvas></div></div>
-<div class="box"><h2>Kutilgan va haqiqiy tushum (so'm)</h2><div class="chart"><canvas id="ch2"></canvas></div></div></div>
+<div class="box"><h2>Oylar bo'yicha dars olgan o'quvchilar soni</h2><div class="chart"><canvas id="ch1"></canvas></div></div>
+<div class="box"><h2>Hisoblangan va haqiqiy tushum (so'm)</h2><div class="chart"><canvas id="ch2"></canvas></div></div>
+<div class="box"><h2>Oylar bo'yicha o'tilgan darslar (barcha guruhlar)</h2><div class="chart"><canvas id="ch3"></canvas></div></div></div>
 </div></div>
 
 <div class="modal" id="mStu"><div class="mbox"><h2 id="sTitle">Yangi o'quvchi</h2>
 <label>F.I.O (ism familiya) *</label><input id="sName2" placeholder="Masalan: Anvarov Jasur">
-<div class="r2"><div><label>Yo'nalish</label><select id="sCourse" onchange="if(!editId)$('sFee').value=CFG.courses[this.value]"></select></div><div><label>Filial</label><select id="sBranch"></select></div>
+<div class="r2"><div><label>Yo'nalish</label><select id="sCourse" onchange="if(!editId)cDef()"></select></div><div><label>Filial</label><select id="sBranch"></select></div>
 <div><label>Davra</label><select id="sPeriod"></select></div><div><label>Dars vaqti</label><select id="sTime"></select></div>
-<div><label>Telefon *</label><input id="sPhone" placeholder="+998 90 123 45 67"></div><div><label>Oylik to'lov (so'm)</label><input id="sFee" type="number" min="0" step="1000"></div></div>
-<div class="gi" id="gInfo"></div><label>Hisob boshlanadigan oy (ixtiyoriy)</label><input id="sB" type="month" placeholder="YYYY-MM"><div class="hint">Bo'sh qoldiring: hisob guruh boshlanganda (o'quvchi guruhga keyin qo'shilgan bo'lsa, qo'shilgan oydan) o'zi boshlanadi. Eski oydan hisoblash kerak bo'lsa, shu yerga oyni yozing.</div><div id="fromW" style="display:none"><label>Yangi narx qaysi oydan boshlab amal qiladi</label><input id="sFrom" type="month" placeholder="YYYY-MM"><div class="hint">Narx o'zgargan bo'lsa shu oydan boshlanadi, oldingi oylar hisobi o'zgarmaydi.</div></div><label>Tavsif (ixtiyoriy)</label><textarea id="sDesc" rows="2"></textarea>
+<div><label>Telefon *</label><input id="sPhone" placeholder="+998 90 123 45 67"></div><div><label>Paket narxi (so'm)</label><input id="sFee" type="number" min="0" step="1000"></div><div><label>Paketdagi darslar soni</label><input id="sLes" type="number" min="1" max="200"></div></div>
+<div class="gi" id="gInfo"></div><label>Hisob boshlanadigan sana (ixtiyoriy)</label><input id="sB" type="date"><div class="hint">Bo'sh qoldiring: o'quvchi qo'shilgan kundan boshlab o'tilgan darslar hisoblanadi. Oldingi darslardan hisoblash kerak bo'lsa, boshlanish sanasini tanlang.</div><div id="fromW" style="display:none"><label>Yangi narx / darslar soni nechanchi paketdan boshlab amal qiladi</label><input id="sFrom" type="number" min="1" step="1"><div class="hint">Narx yoki paketdagi darslar soni o'zgargan bo'lsa, shu paketdan boshlanadi. Oldingi paketlar hisobi o'zgarmaydi.</div></div><label>Tavsif (ixtiyoriy)</label><textarea id="sDesc" rows="2"></textarea>
 <div class="err" id="sErr"></div><div class="mb"><button class="btn gray" onclick="closeM('mStu')">Bekor qilish</button><button class="btn" onclick="addStu()">Saqlash</button></div></div></div>
 
 <div class="modal" id="mPay"><div class="mbox"><h2>To'lov kiritish</h2>
 <label>O'quvchi</label><select id="yS" onchange="payHint(1)"></select>
-<div class="r2"><div><label>Qaysi oy uchun</label><input type="month" placeholder="YYYY-MM" id="yM" onchange="payHint(1)"></div><div><label>To'lov sanasi</label><input type="date" id="yD"></div></div>
+<label>To'lov sanasi</label><input type="date" id="yD">
 <label>Summa (so'm)</label><input type="number" id="yA" min="1" step="1000" oninput="payHint()"><div class="hint" id="yH"></div>
 <div class="err" id="yE"></div><div class="mb"><button class="btn gray" onclick="closeM('mPay')">Bekor qilish</button><button class="btn green" onclick="addPay()">Saqlash</button></div></div></div>
 
-<div class="modal" id="mLed"><div class="mbox wide"><h2 id="lT"></h2><div class="hint" id="lI" style="margin-bottom:12px"></div>
-<div class="tw"><table><thead><tr><th>Oy</th><th>Oylik</th><th>To'langan</th><th>Qarz</th><th>Holat</th></tr></thead><tbody id="lB"></tbody></table></div>
-<h3 style="margin:20px 0 8px;font-size:15px">To'lovlar tarixi</h3><div class="tw"><table><thead><tr><th>Sana</th><th>Oy uchun</th><th>Summa</th><th></th></tr></thead><tbody id="lH"></tbody></table></div>
+<div class="modal" id="mLed"><div class="mbox wide"><h2 id="lT"></h2><div class="hint" id="lI" style="margin-bottom:8px"></div><div id="lP" style="margin-bottom:12px;font-size:14px"></div>
+<div class="tw"><table><thead><tr><th>Paket</th><th>Darslar</th><th>Narx</th><th>To'langan</th><th>Qarz</th><th>Muddat</th><th>Holat</th></tr></thead><tbody id="lB"></tbody></table></div>
+<h3 style="margin:20px 0 8px;font-size:15px">To'lovlar tarixi</h3><div class="tw"><table><thead><tr><th>Sana</th><th>Summa</th><th></th></tr></thead><tbody id="lH"></tbody></table></div>
 <div class="mb"><button class="btn gray" onclick="closeM('mLed')">Yopish</button></div></div></div>
-<div class="modal" id="mGrp"><div class="mbox"><h2>Guruh holati</h2><div class="hint" id="gT" style="margin-bottom:10px"></div>
-<label>Guruh boshlanadigan oy</label><input id="gM" type="month" placeholder="YYYY-MM"><div class="hint">Shu oydan boshlab guruh o'quvchilari uchun oylik hisob-kitob yuritiladi. Guruh boshlanmaguncha hisob-kitob yuritilmaydi.</div>
-<div class="err" id="gE"></div><div class="mb"><button class="btn gray" onclick="closeM('mGrp')">Yopish</button><button class="btn red" id="gR" onclick="resetGrp()">Boshlanmadi</button><button class="btn green" onclick="saveGrp()">Boshlash</button></div></div></div>
+<div class="modal" id="mGrp"><div class="mbox wide"><h2>Guruh darslari</h2><div class="hint" id="gT" style="margin-bottom:6px"></div><div id="gSum" style="font-weight:600;margin-bottom:12px"></div>
+<div class="r2"><div><label>Dars sanasi</label><input type="date" id="gD"></div><div><label>Nechta dars o'tildi</label><input type="number" id="gN" min="1" max="200" value="1"></div></div>
+<div class="hint">Bir kunda 2 ta dars o'tilgan bo'lsa yoki oldingi o'tilgan darslarni kiritayotgan bo'lsangiz, sana va sonini yozing.</div>
+<div class="err" id="gE"></div><button class="btn green" onclick="addLes()"><i class="fa-solid fa-plus"></i> Dars qo'shish</button>
+<h3 style="margin:18px 0 8px;font-size:15px">O'tilgan darslar</h3><div class="tw" style="max-height:260px;overflow-y:auto"><table><thead><tr><th>Dars</th><th>Sana</th><th></th></tr></thead><tbody id="gL"></tbody></table></div>
+<div class="mb"><button class="btn gray" onclick="closeM('mGrp')">Yopish</button></div></div></div>
 <div class="toast" id="toast"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>
 /* ===== SOZLAMALAR — o'quv markaziga moslash shu yerda ===== */
-const CFG={center:"IDEALPROMAX",
-courses:{"Kompyuter savodxonligi":250000,"Dasturlash":350000,"Robototexnika":400000,"AI (Sun'iy intellekt)":450000},
+const CFG={center:"IT va Robototexnika Markazi",
+// price = bitta paket narxi (so'm), lessons = bitta paketdagi darslar soni (masalan 12 dars = 1 oy)
+courses:{"Kompyuter savodxonligi":{price:250000,lessons:12},"Dasturlash":{price:350000,lessons:12},"Robototexnika":{price:400000,lessons:12},"AI (Sun'iy intellekt)":{price:450000,lessons:12}},
+// "after" = paketdagi darslar to'liq o'tilgach to'lov kerak; "before" = paket boshlanishi bilan to'lov kerak
+payWhen:"after",
 branches:["Parkent","52-maktab","7-maktab"],periods:["1-davra","2-davra"],times:["08:00","10:00","14:00","16:00"]};
 /* ========================================================= */
 const $=id=>document.getElementById(id);
@@ -202,23 +209,33 @@ const today=()=>{const d=new Date();return mk(d)+"-"+String(d.getDate()).padStar
 const opts=a=>a.map(v=>`<option>${esc(v)}</option>`).join("");
 const toast=(t,bad)=>{const e=$("toast");e.textContent=t;e.className="toast show"+(bad?" bad":"");clearTimeout(e._t);e._t=setTimeout(()=>e.className="toast",2200)};
 
-/* ===== HISOB-KITOB (eng muhim qism) ===== */
-const MKR=/^20\d{2}-(0[1-9]|1[0-2])$/;
-const paid=(sid,m)=>P.filter(p=>p.sid===sid&&p.month===m).reduce((a,p)=>a+p.amount,0);
-const fe=(s,m)=>{const L=s.fees&&s.fees.length?s.fees:[{from:s.start,fee:s.fee}];let f=L[0].fee;for(const x of L)if(x.from<=m)f=x.fee;return f};
+/* ===== HISOB-KITOB (dars asosida) ===== */
+const cc=c=>{const v=CFG.courses[c];return typeof v==="number"?{price:v,lessons:12}:(v||{price:0,lessons:12})};
+const when=()=>CFG.payWhen==="before"?"before":"after";
 const gk=s=>[s.branch,s.course,s.period,s.time].join("|");
-const gStart=s=>{const g=G.find(x=>x.key===gk(s));return g&&g.start||""};
-const bs=s=>{const g=gStart(s);if(!g)return"";if(MKR.test(s.bstart))return s.bstart;return s.start&&s.start>g?s.start:g};
-const dueAt=(s,m)=>{const b=bs(s);return b&&m>=b?fe(s,m):0};
-function ensureG(s){if(!G.some(g=>g.key===gk(s)))G.push({key:gk(s),start:""})}
-function syncGroups(){S.forEach(s=>{if(!G.some(g=>g.key===gk(s))){const ms=S.filter(x=>gk(x)===gk(s)).map(x=>x.start).sort();G.push({key:gk(s),start:ms[0]||""})}});G=G.filter(g=>S.some(s=>gk(s)===g.key))}
-const gPill=st=>!st?'<span class="st nw">Boshlanmadi</span>':st>NOW?`<span class="st adv">Boshlanadi: ${ml(st)}</span>`:`<span class="st paid">Boshlandi · ${ml(st)}</span>`;
-function ledger(s){const b=bs(s);let a=b||"9999-99",z=NOW,n=0;P.forEach(p=>{if(p.sid===s.id){if(p.month<a)a=p.month;if(p.month>z)z=p.month}});
- const r=[];if(a==="9999-99")return r;
- for(let m=a;m<=z&&++n<1500;m=mnext(m)){const pd=paid(s.id,m),st=!!b&&m>=b,fut=m>NOW||!st;if((fut)&&!pd)continue;const due=st?fe(s,m):0;r.push({m,due,pd,fut,debt:fut?0:Math.max(0,due-pd),over:fut?pd:Math.max(0,pd-due)})}return r}
-const totalDebt=s=>ledger(s).reduce((a,r)=>a+r.debt,0);
-const STX={paid:"To'liq to'langan",part:"Qisman to'langan",debt:"To'lamagan"};
-const rowSt=r=>r.fut?(r.pd>0?["adv","Oldindan to'langan"]:["nw","Kelgusi oy"]):r.pd>r.due?["paid","Ortiqcha +"+fmt(r.pd-r.due)]:r.pd>=r.due?["paid",STX.paid]:r.pd>0?["part",STX.part]:["debt",STX.debt];
+const gOf=s=>G.find(x=>x.key===gk(s));
+const uid=(()=>{let c=0;return()=>Date.now()*1000+(c++%1000)})();
+const lastFee=s=>s.fees&&s.fees.length?s.fees[s.fees.length-1].fee:s.fee;
+const tar=s=>s.tariffs&&s.tariffs.length?s.tariffs:[{from:1,fee:Number(lastFee(s))||0,lessons:cc(s.course).lessons}];
+const tAt=(T,k)=>{let t=T[0];for(const x of T)if(x.from<=k)t=x;return t};
+const bdate=s=>{let b=s.bstart||s.joined||(s.start?s.start+"-01":"");if(b.length===7)b+="-01";return b||"0000-00-00"};
+const lessonDates=s=>{const g=gOf(s),b=bdate(s);return g?g.lessons.map(l=>l.date).filter(d=>d>=b).sort():[]};
+function acct(s){const ds=lessonDates(s),L=ds.length,T=[...tar(s)].sort((a,b)=>a.from-b.from),paid=P.reduce((a,p)=>a+(p.sid===s.id?p.amount:0),0),pos=T.some(x=>x.fee>0),W=when(),bl=[];let start=0,cum=0;
+ for(let k=1;k<=800&&(start<L||(pos&&cum<paid));k++){const t=tAt(T,k),size=Math.max(1,Math.floor(t.lessons)||12),fee=t.fee,end=start+size,due=W==="before"?L>start:L>=end,done=Math.min(Math.max(L-start,0),size),pd=Math.min(Math.max(paid-cum,0),fee);
+  bl.push({k,from:start+1,to:end,size,fee,done,due,pd,debt:due?fee-pd:0,dueDate:due?(ds[W==="before"?start:end-1]||""):""});start=end;cum+=fee}
+ return{L,paid,bl,T,dueSum:bl.reduce((a,b)=>a+(b.due?b.fee:0),0),debt:bl.reduce((a,b)=>a+b.debt,0),cur:bl.find(b=>b.done>0&&b.done<b.size)}}
+const curT=a=>tAt(a.T,(a.bl.filter(b=>b.done>0||b.due).length)||1);
+const totalDebt=s=>acct(s).debt;
+const stOf=a=>a.debt>0?(a.paid>0?["part","Qisman to'langan"]:["debt","To'lamagan"]):a.L===0?(a.paid>0?["adv","Oldindan to'langan"]:["nw","Dars boshlanmagan"]):["paid","To'lovlar to'liq"];
+const bSt=b=>b.due?(b.pd>=b.fee?["paid","To'liq to'langan"]:b.pd>0?["part","Qisman: "+fmt(b.pd)]:["debt","To'lanmagan"]):(b.pd>0?["adv",b.pd>=b.fee?"Oldindan to'langan":"Oldindan: "+fmt(b.pd)]:["nw","Joriy paket"]);
+const prog=a=>a.cur?a.cur.done+"/"+a.cur.size:(a.L?"paket yakunlandi":"-");
+const started=g=>!!g&&(g.lessons.length>0||!!g.start);
+const gPill=g=>started(g)?`<span class="st paid">Boshlandi · ${g.lessons.length} dars</span>`:'<span class="st nw">Boshlanmadi</span>';
+function ensureG(s){if(!G.some(g=>g.key===gk(s)))G.push({key:gk(s),start:"",lessons:[]})}
+function syncGroups(){S.forEach(s=>{if(!s.tariffs||!s.tariffs.length)s.fee=Number(lastFee(s))||0});
+ G.forEach(g=>{if(!Array.isArray(g.lessons))g.lessons=[]});
+ S.forEach(s=>{if(!G.some(g=>g.key===gk(s))){const ms=S.filter(x=>gk(x)===gk(s)).map(x=>x.start).filter(Boolean).sort();G.push({key:gk(s),start:ms[0]||"",lessons:[]})}});
+ G=G.filter(g=>S.some(s=>gk(s)===g.key))}
 
 /* ===== AUTH ===== */
 $("aName").textContent=$("sName").textContent=CFG.center;
@@ -249,91 +266,105 @@ document.querySelectorAll(".modal").forEach(m=>m.addEventListener("mousedown",e=
 /* ===== O'QUVCHILAR ===== */
 let editId=null;
 const setSel=(id,v)=>{const e=$(id);if(![...e.options].some(o=>o.value===v))e.add(new Option(v,v));e.value=v};
+function cDef(){const c=cc($("sCourse").value);$("sFee").value=c.price;$("sLes").value=c.lessons}
 function openStu(id){editId=id||null;const s=id&&S.find(x=>x.id===id);
  $("sTitle").textContent=s?"O'quvchini tahrirlash":"Yangi o'quvchi";
  $("sName2").value=s?s.name:"";$("sPhone").value=s?s.phone:"";$("sDesc").value=s?s.desc:"";
  setSel("sCourse",s?s.course:Object.keys(CFG.courses)[0]);setSel("sBranch",s?s.branch:CFG.branches[0]);setSel("sPeriod",s?s.period:CFG.periods[0]);setSel("sTime",s?s.time:CFG.times[0]);
- $("sFee").value=s?fe(s,NOW):CFG.courses[$("sCourse").value];$("sB").value=s&&s.bstart||"";
- $("fromW").style.display=s?"block":"none";$("sFrom").value=NOW;$("sErr").textContent="";gInfoUpd();openM("mStu");$("sName2").focus()}
-function gInfoUpd(){const k=[$("sBranch").value,$("sCourse").value,$("sPeriod").value,$("sTime").value].join("|"),g=G.find(x=>x.key===k),st=g&&g.start,e=$("gInfo");
- e.className="gi "+(st?(st>NOW?"gi-w":"gi-ok"):"gi-no");
- e.textContent=!st?"Bu guruh hali boshlanmagan. Guruh boshlanmaguncha hisob-kitob yuritilmaydi (Guruhlar bo'limida «Boshlash» bosiladi).":st>NOW?"Bu guruh "+ml(st)+" oyida boshlanadi.":"Bu guruh boshlangan ("+ml(st)+"). Hisob-kitob yuritiladi."}
-function addStu(){const s0=editId&&S.find(x=>x.id===editId),name=$("sName2").value.trim().replace(/\s+/g," "),phone=$("sPhone").value.trim(),fee=Number($("sFee").value),bstart=$("sB").value.trim();
+ if(s){const t=[...tar(s)].sort((a,b)=>a.from-b.from).pop();$("sFee").value=t.fee;$("sLes").value=t.lessons}else cDef();
+ $("sB").value=s&&/^\d{4}-\d{2}-\d{2}$/.test(s.bstart||"")?s.bstart:"";
+ $("fromW").style.display=s?"block":"none";$("sFrom").value=s?acct(s).bl.filter(b=>b.done>0||b.due).length+1:1;
+ $("sErr").textContent="";gInfoUpd();openM("mStu");$("sName2").focus()}
+function gInfoUpd(){const k=[$("sBranch").value,$("sCourse").value,$("sPeriod").value,$("sTime").value].join("|"),g=G.find(x=>x.key===k),e=$("gInfo");
+ e.className="gi "+(started(g)?"gi-ok":"gi-no");
+ e.textContent=started(g)?"Bu guruhda "+g.lessons.length+" ta dars o'tilgan. O'quvchi qo'shilgan kundan boshlab o'tilgan darslar hisoblanadi.":"Bu guruh hali boshlanmagan (dars o'tilmagan). Guruhlar bo'limida darslar belgilangach hisob-kitob yuritiladi."}
+function addStu(){const s0=editId&&S.find(x=>x.id===editId),name=$("sName2").value.trim().replace(/\s+/g," "),phone=$("sPhone").value.trim(),fee=Number($("sFee").value),les=Math.floor(Number($("sLes").value)),bstart=$("sB").value.trim();
  const er=m=>$("sErr").textContent=m;
  if(name.length<3)return er("Ism familiyani to'liq kiriting!");
  if(!/^\+?[\d\s()-]{9,18}$/.test(phone))return er("Telefon raqami noto'g'ri!");
- if(!(fee>=0)||$("sFee").value==="")return er("Oylik to'lov summasini kiriting!");
- if(bstart&&!MKR.test(bstart))return er("Hisob boshlanadigan oy noto'g'ri (YYYY-MM)!");
+ if($("sFee").value===""||!(fee>=0))return er("Paket narxini kiriting!");
+ if(!(les>=1&&les<=200))return er("Paketdagi darslar soni 1 dan 200 gacha bo'lsin!");
+ if(bstart&&!/^\d{4}-\d{2}-\d{2}$/.test(bstart))return er("Hisob boshlanadigan sana noto'g'ri!");
  if(S.some(s=>s.id!==editId&&s.name.toLowerCase()===name.toLowerCase()&&s.phone===phone))return er("Bunday o'quvchi allaqachon mavjud!");
  const v={name,phone,bstart,course:$("sCourse").value,branch:$("sBranch").value,period:$("sPeriod").value,time:$("sTime").value,desc:$("sDesc").value.trim()};
- if(s0){s0.fees=(s0.fees&&s0.fees.length?s0.fees:[{from:s0.start,fee:s0.fee}]);const from=$("sFrom").value;
-  if(fee!==fe(s0,MKR.test(from)?from:NOW)){
-   if(!MKR.test(from))return er("Yangi narx qaysi oydan boshlanishini to'g'ri kiriting (YYYY-MM)!");
-   if(!confirm(`${ml(from)} oyidan boshlab oylik ${fmt(fee)} bo'ladi.\nOldingi oylar hisobi o'zgarmaydi. Davom etasizmi?`))return;
-   s0.fees=s0.fees.filter(x=>x.from!==from).concat({from,fee}).sort((a,b)=>a.from.localeCompare(b.from));s0.fee=fe(s0,NOW)}
+ if(s0){const T=[...tar(s0)].map(x=>({...x})).sort((a,b)=>a.from-b.from),cur=T[T.length-1],from=Math.floor(Number($("sFrom").value));
+  if(fee!==cur.fee||les!==cur.lessons){
+   if(!(from>=1&&from<=1000))return er("Yangi narx nechanchi paketdan boshlanishini kiriting (1, 2, 3...)!");
+   if(!confirm(`${from}-paketdan boshlab: narx ${fmt(fee)}, paketda ${les} dars bo'ladi.\nOldingi paketlar hisobi o'zgarmaydi. Davom etasizmi?`))return;
+   s0.tariffs=T.filter(x=>x.from!==from).concat({from,fee,lessons:les}).sort((a,b)=>a.from-b.from)}else s0.tariffs=T;
+  s0.fee=s0.tariffs[s0.tariffs.length-1].fee;
   Object.assign(s0,v);ensureG(s0);syncGroups();save();closeM("mStu");render();return toast("O'zgarishlar saqlandi!")}
- const n={id:Date.now()+Math.floor(Math.random()*1000),start:NOW,fee,fees:[{from:NOW,fee}],...v};
+ const n={id:uid(),start:NOW,joined:today(),fee,tariffs:[{from:1,fee,lessons:les}],...v};
  S.push(n);ensureG(n);syncGroups();save();closeM("mStu");render();toast("O'quvchi qo'shildi!")}
 function delStu(id){const s=S.find(x=>x.id===id);if(!s)return;
  if(!confirm(`"${s.name}" guruhdan va tizimdan butunlay o'chiriladi.\nUning barcha shaxsiy ma'lumotlari va to'lovlari qaytarib bo'lmaydigan tarzda o'chadi!\n\nDavom etasizmi?`))return;
  S=S.filter(x=>x.id!==id);P=P.filter(p=>p.sid!==id);syncGroups();save();render();toast("O'quvchi va uning barcha ma'lumotlari o'chirildi")}
 function rStudents(){const q=$("fQ").value.toLowerCase().trim(),b=$("fB").value,c=$("fC").value;
  const f=S.filter(s=>(!q||s.name.toLowerCase().includes(q)||s.phone.includes(q))&&(!b||s.branch===b)&&(!c||s.course===c));
- $("tStu").innerHTML=f.length?f.map(s=>{const d=totalDebt(s);return`<tr><td><b>${esc(s.name)}</b></td><td><span class="tag">${esc(s.course)}</span><div style="margin-top:6px">${gPill(gStart(s))}</div></td><td>${esc(s.branch)}</td><td>${esc(s.period)}, ${esc(s.time)}</td><td>${esc(s.phone)}</td><td>${fmt(fe(s,NOW))}</td><td class="${d?"bad":"ok"}">${d?fmt(d):"Yo'q"}</td><td>${esc(s.desc)||"-"}</td><td><button class="btn sm" onclick="openLed(${s.id})" title="Hisob"><i class="fa-solid fa-receipt"></i></button> <button class="btn sm gray" onclick="openStu(${s.id})" title="Tahrirlash"><i class="fa-solid fa-pen"></i></button> <button class="btn sm red" onclick="delStu(${s.id})" title="O'chirish"><i class="fa-solid fa-trash"></i></button></td></tr>`}).join(""):`<tr><td colspan="9" class="empty">O'quvchilar topilmadi</td></tr>`}
+ $("tStu").innerHTML=f.length?f.map(s=>{const a=acct(s),t=curT(a);return`<tr><td><b>${esc(s.name)}</b></td><td><span class="tag">${esc(s.course)}</span><div style="margin-top:6px">${gPill(gOf(s))}</div></td><td>${esc(s.branch)}</td><td>${esc(s.period)}, ${esc(s.time)}</td><td>${esc(s.phone)}</td><td>${fmt(t.fee)}<div class="hint">${t.lessons} dars / paket</div></td><td><b>${a.L}</b> dars<div class="hint">joriy: ${prog(a)}</div></td><td class="${a.debt?"bad":"ok"}">${a.debt?fmt(a.debt):"Yo'q"}</td><td>${esc(s.desc)||"-"}</td><td><button class="btn sm" onclick="openLed(${s.id})" title="Hisob"><i class="fa-solid fa-receipt"></i></button> <button class="btn sm gray" onclick="openStu(${s.id})" title="Tahrirlash"><i class="fa-solid fa-pen"></i></button> <button class="btn sm red" onclick="delStu(${s.id})" title="O'chirish"><i class="fa-solid fa-trash"></i></button></td></tr>`}).join(""):`<tr><td colspan="10" class="empty">O'quvchilar topilmadi</td></tr>`}
 
 /* ===== GURUHLAR ===== */
-let gBr="";
+let gBr="",gK="";
 $("chips").onclick=e=>{const c=e.target.closest("[data-b]");if(c){gBr=c.dataset.b;rGroups()}};
-let gK="";
-function openGrp(i){gK=GK[i];const g=G.find(x=>x.key===gK)||{};$("gT").textContent=gK.split("|").join(" · ")+" · "+S.filter(s=>gk(s)===gK).length+" ta o'quvchi";$("gM").value=g.start||NOW;$("gE").textContent="";$("gR").style.display=g.start?"inline-flex":"none";openM("mGrp")}
-function saveGrp(){const m=$("gM").value,g=G.find(x=>x.key===gK);if(!MKR.test(m))return $("gE").textContent="Oyni to'g'ri kiriting (YYYY-MM)!";if(!g)return;g.start=m;save();closeM("mGrp");render();toast("Guruh "+ml(m)+" oyidan boshlandi. Hisob-kitob yuritiladi")}
-function resetGrp(){if(!confirm("Guruh «Boshlanmadi» holatiga qaytariladi. Hisob-kitob to'xtaydi (kiritilgan to'lovlar saqlanadi). Davom etasizmi?"))return;const g=G.find(x=>x.key===gK);if(g)g.start="";save();closeM("mGrp");render();toast("Guruh «Boshlanmadi» holatiga qaytarildi")}
+const curG=()=>G.find(x=>x.key===gK);
+function openGrp(i){gK=GK[i];renderGrpM();openM("mGrp")}
+function renderGrpM(){const g=curG();if(!g)return;
+ $("gT").textContent=gK.split("|").join(" · ")+" · "+S.filter(s=>gk(s)===gK).length+" ta o'quvchi";
+ $("gSum").textContent="Jami o'tilgan darslar: "+g.lessons.length;
+ const ls=[...g.lessons].sort((a,b)=>a.date.localeCompare(b.date)||a.id-b.id);
+ $("gL").innerHTML=ls.length?ls.map((l,i)=>`<tr><td>${i+1}-dars</td><td>${esc(l.date)}</td><td><button class="btn sm red" onclick="delLes(${l.id})" title="O'chirish"><i class="fa-solid fa-trash"></i></button></td></tr>`).reverse().join(""):`<tr><td colspan="3" class="empty">Hali dars o'tilmagan</td></tr>`;
+ $("gD").value=today();$("gN").value=1;$("gE").textContent=""}
+function addLes(){const g=curG(),d=$("gD").value,n=Number($("gN").value),er=t=>$("gE").textContent=t;if(!g)return;
+ if(!/^\d{4}-\d{2}-\d{2}$/.test(d))return er("Dars sanasini kiriting!");
+ if(!Number.isInteger(n)||n<1||n>200)return er("Darslar soni 1 dan 200 gacha bo'lsin!");
+ for(let i=0;i<n;i++)g.lessons.push({id:uid(),date:d});if(!g.start)g.start=d;
+ save();render();renderGrpM();toast(n+" ta dars qo'shildi (jami "+g.lessons.length+")")}
+function delLes(id){const g=curG();if(!g||!confirm("Bu dars yozuvini o'chirasizmi? Shu guruh o'quvchilarining hisobi qayta hisoblanadi."))return;
+ g.lessons=g.lessons.filter(l=>l.id!==id);if(!g.lessons.length)g.start="";save();render();renderGrpM();toast("Dars o'chirildi")}
+function quickLes(i){const g=G.find(x=>x.key===GK[i]);if(!g)return;g.lessons.push({id:uid(),date:today()});if(!g.start)g.start=today();save();render();toast(g.lessons.length+"-dars qo'shildi")}
 function rGroups(){const L=gBr?S.filter(s=>s.branch===gBr):S,g={};
- L.forEach(s=>{const k=[s.branch,s.course,s.period,s.time].join("|");(g[k]=g[k]||[]).push(s.name)});
+ L.forEach(s=>{(g[gk(s)]=g[gk(s)]||[]).push(s.name)});
  const ks=Object.keys(g).sort();
  GK=ks;
- $("tGrp").innerHTML=ks.length?ks.map((k,i)=>{const[b,c,p,t]=k.split("|"),st=(G.find(x=>x.key===k)||{}).start||"";return`<tr><td><b>${esc(b)}</b></td><td>${esc(c)}</td><td>${esc(p)}</td><td>${esc(t)}</td><td class="ok" style="font-size:16px">${g[k].length} ta</td><td>${gPill(st)}</td><td style="white-space:normal;min-width:220px;color:var(--mut)">${g[k].map(esc).join(", ")}</td><td><button class="btn sm ${st?"gray":"green"}" onclick="openGrp(${i})">${st?"O'zgartirish":"Boshlash"}</button></td></tr>`}).join(""):`<tr><td colspan="8" class="empty">Guruhlar mavjud emas</td></tr>`;
+ $("tGrp").innerHTML=ks.length?ks.map((k,i)=>{const[b,c,p,t]=k.split("|"),gr=G.find(x=>x.key===k),n=gr?gr.lessons.length:0,last=gr&&n?gr.lessons.map(l=>l.date).sort().pop():"";return`<tr><td><b>${esc(b)}</b></td><td>${esc(c)}</td><td>${esc(p)}</td><td>${esc(t)}</td><td class="ok" style="font-size:16px">${g[k].length} ta</td><td><b>${n}</b> dars${last?`<div class="hint">oxirgi: ${esc(last)}</div>`:""}</td><td>${gPill(gr)}</td><td style="white-space:normal;min-width:220px;color:var(--mut)">${g[k].map(esc).join(", ")}</td><td><button class="btn sm green" onclick="quickLes(${i})" title="Bugun 1 ta dars o'tildi">+1</button> <button class="btn sm gray" onclick="openGrp(${i})">Darslar</button></td></tr>`}).join(""):`<tr><td colspan="9" class="empty">Guruhlar mavjud emas</td></tr>`;
  $("gH").textContent=gBr?"Umumiy taqsimot — "+gBr:"Umumiy taqsimot — barcha filiallar";
  const sl=($("chips").querySelector(".bt")||{}).scrollLeft||0;
  const tab=(b,n,l)=>`<button type="button" class="bt-i${gBr===b?" on":""}" data-b="${esc(b)}">${esc(l)}<b>${n}</b></button>`;
  const rows=(key,list)=>list.map(v=>{const n=L.filter(s=>s[key]===v).length;return`<div class="dr"><span>${esc(v)}</span><b>${n}</b><i style="width:${L.length?Math.round(n/L.length*100):0}%"></i></div>`}).join("");
  const panel=(t,ic,body)=>`<div class="dp"><h4><i class="fa-solid fa-${ic}"></i>${t}</h4>${body}</div>`;
- $("chips").innerHTML=`<div class="bt-l">Filial tanlang</div><div class="bt">${tab("",S.length,"Hammasi")+CFG.branches.map(b=>tab(b,S.filter(s=>s.branch===b).length,b)).join("")}</div><div class="dsum"><b>${L.length}</b> ta o'quvchi · <b>${ks.length}</b> ta guruh · <b>${ks.filter(k=>{const x=(G.find(g=>g.key===k)||{}).start;return x&&x<=NOW}).length}</b> ta boshlangan</div><div class="dg">${panel("Yo'nalishlar","book-open",rows("course",Object.keys(CFG.courses)))}${panel("Davralar","calendar-days",rows("period",CFG.periods))}${panel("Vaqtlar","clock",rows("time",CFG.times))}</div>`;
+ $("chips").innerHTML=`<div class="bt-l">Filial tanlang</div><div class="bt">${tab("",S.length,"Hammasi")+CFG.branches.map(b=>tab(b,S.filter(s=>s.branch===b).length,b)).join("")}</div><div class="dsum"><b>${L.length}</b> ta o'quvchi · <b>${ks.length}</b> ta guruh · <b>${ks.filter(k=>started(G.find(x=>x.key===k))).length}</b> ta boshlangan</div><div class="dg">${panel("Yo'nalishlar","book-open",rows("course",Object.keys(CFG.courses)))}${panel("Davralar","calendar-days",rows("period",CFG.periods))}${panel("Vaqtlar","clock",rows("time",CFG.times))}</div>`;
  const bt=$("chips").querySelector(".bt");if(bt)bt.scrollLeft=sl}
 
 /* ===== TO'LOVLAR ===== */
-function rPay(){let m=$("pM").value;if(!MKR.test(m))m=NOW;const b=$("pB").value,c=$("pC").value,fs=$("pS").value,fut=m>NOW;
-  const rows=S.filter(s=>((bs(s)&&bs(s)<=m)||paid(s.id,m)>0)&&(!b||s.branch===b)&&(!c||s.course===c)).map(s=>{const pd=paid(s.id,m),due=dueAt(s,m),st=!!bs(s)&&m>=bs(s),l=P.filter(p=>p.sid===s.id&&p.month===m).map(p=>p.date).sort().pop(),r={s,pd,due,fut:m>NOW||!st,l};r.debt=r.fut?0:Math.max(0,due-pd);[r.st,r.txt]=rowSt(r);return r}).filter(r=>!fs||r.st===fs||(fs==="paid"&&r.st==="adv"));PR=rows;PM=m;
- $("pExp").textContent=fmt(rows.reduce((a,r)=>a+r.due,0));$("pPaid").textContent=fmt(rows.reduce((a,r)=>a+r.pd,0));$("pDebt").textContent=fmt(rows.reduce((a,r)=>a+r.debt,0));
- $("tPay").innerHTML=rows.length?rows.map(r=>`<tr><td><b>${esc(r.s.name)}</b></td><td>${esc(r.s.course)}</td><td>${esc(r.s.branch)}</td><td>${fmt(r.due)}</td><td class="ok">${fmt(r.pd)}</td><td class="${r.debt?"bad":""}">${fmt(r.debt)}</td><td>${esc(r.l)||"-"}</td><td><span class="st ${r.st}">${r.txt}</span></td><td><button class="btn sm green" onclick="openPay(${r.s.id},'${m}')" title="To'lov"><i class="fa-solid fa-plus"></i></button> <button class="btn sm" onclick="openLed(${r.s.id})" title="Hisob"><i class="fa-solid fa-receipt"></i></button></td></tr>`).join(""):`<tr><td colspan="9" class="empty">${ml(m)} uchun ma'lumot yo'q</td></tr>`}
-function openPay(sid,m){if(!S.length)return toast("Avval o'quvchi qo'shing!",1);
+function rPay(){const b=$("pB").value,c=$("pC").value,fs=$("pS").value;
+ const rows=S.filter(s=>(!b||s.branch===b)&&(!c||s.course===c)).map(s=>{const a=acct(s),[st,txt]=stOf(a),l=P.filter(p=>p.sid===s.id).map(p=>p.date).sort().pop();return{s,a,st,txt,l}}).filter(r=>!fs||r.st===fs||(fs==="paid"&&r.st==="adv"));PR=rows;
+ $("pExp").textContent=fmt(rows.reduce((x,r)=>x+r.a.dueSum,0));$("pPaid").textContent=fmt(rows.reduce((x,r)=>x+r.a.paid,0));$("pDebt").textContent=fmt(rows.reduce((x,r)=>x+r.a.debt,0));
+ $("tPay").innerHTML=rows.length?rows.map(r=>`<tr><td><b>${esc(r.s.name)}</b></td><td>${esc(r.s.course)}</td><td>${esc(r.s.branch)}</td><td><b>${r.a.L}</b> dars<div class="hint">joriy: ${prog(r.a)}</div></td><td>${fmt(r.a.dueSum)}</td><td class="ok">${fmt(r.a.paid)}</td><td class="${r.a.debt?"bad":""}">${fmt(r.a.debt)}</td><td>${esc(r.l)||"-"}</td><td><span class="st ${r.st}">${r.txt}</span></td><td><button class="btn sm green" onclick="openPay(${r.s.id})" title="To'lov"><i class="fa-solid fa-plus"></i></button> <button class="btn sm" onclick="openLed(${r.s.id})" title="Hisob"><i class="fa-solid fa-receipt"></i></button></td></tr>`).join(""):`<tr><td colspan="10" class="empty">Ma'lumot yo'q</td></tr>`}
+function openPay(sid){if(!S.length)return toast("Avval o'quvchi qo'shing!",1);
  $("yS").innerHTML=S.map(s=>`<option value="${s.id}">${esc(s.name)} (${esc(s.course)})</option>`).join("");if(sid)$("yS").value=sid;
- $("yM").value=MKR.test(m)?m:NOW;$("yD").value=today();$("yE").textContent="";payHint(1);openM("mPay")}
-function payHint(fill){const s=S.find(x=>x.id===+$("yS").value);if(!s)return;const m=MKR.test($("yM").value)?$("yM").value:NOW,pd=paid(s.id,m),due=dueAt(s,m),rem=Math.max(0,due-pd),st=!!bs(s)&&m>=bs(s);
- if(fill)$("yA").value=(rem||due||fe(s,m))||"";
- const a=Number($("yA").value)||0;let t;
- if(!st)t=`${ml(m)}: hisob-kitob hali boshlanmagan (${bs(s)?"o'quvchi "+ml(bs(s))+" dan boshlaydi":"guruh boshlanmagan"}). To'lov oldindan to'lov sifatida yoziladi.`;
- else{t=`${ml(m)}${m>NOW?" (oldindan)":""}: oylik ${fmt(due)}, to'langan ${fmt(pd)}, qolgan qarz ${fmt(rem)}`;
-  if(a>0){const x=pd+a;t+=` · Saqlangach: ${x>due?"ortiqcha "+fmt(x-due):x===due?"to'liq to'langan":"qarz "+fmt(due-x)}`}}
+ $("yD").value=today();$("yE").textContent="";payHint(1);openM("mPay")}
+function payHint(fill){const s=S.find(x=>x.id===+$("yS").value);if(!s)return;const a=acct(s);
+ if(fill){const nb=a.bl.find(b=>b.pd<b.fee);$("yA").value=a.debt||(nb?nb.fee-nb.pd:tar(s)[0].fee)||""}
+ const x=Number($("yA").value)||0;let t=`O'tilgan: ${a.L} dars · Hisoblangan: ${fmt(a.dueSum)} · To'langan: ${fmt(a.paid)} · Qarz: ${fmt(a.debt)}`;
+ if(x>0){const n=a.paid+x;t+=` · Saqlangach: ${n>a.dueSum?"oldindan "+fmt(n-a.dueSum):n===a.dueSum?"qarz yo'q":"qarz "+fmt(a.dueSum-n)}`}
  $("yH").textContent=t}
-function addPay(){const s=S.find(x=>x.id===+$("yS").value),m=$("yM").value,d=$("yD").value,a=Number($("yA").value),er=t=>$("yE").textContent=t;
+function addPay(){const s=S.find(x=>x.id===+$("yS").value),d=$("yD").value,a=Number($("yA").value),er=t=>$("yE").textContent=t;
  if(!s)return er("O'quvchini tanlang!");
- if(!MKR.test(m))return er("Qaysi oy uchun ekanini to'g'ri kiriting (YYYY-MM)!");
- if(!d)return er("To'lov sanasini kiriting!");
+ if(!/^\d{4}-\d{2}-\d{2}$/.test(d))return er("To'lov sanasini kiriting!");
  if(!Number.isInteger(a)||a<=0||a>1e12)return er("Summa musbat butun son bo'lishi kerak!");
- P.push({id:Date.now()+Math.floor(Math.random()*1000),sid:s.id,month:m,amount:a,date:d});save();closeM("mPay");render();if($("mLed").classList.contains("show"))openLed(s.id);toast("To'lov saqlandi!")}
+ P.push({id:uid(),sid:s.id,amount:a,date:d,month:d.slice(0,7)});save();closeM("mPay");render();if($("mLed").classList.contains("show"))openLed(s.id);toast("To'lov saqlandi!")}
 function delPay(id,sid){if(!confirm("Bu to'lov yozuvini o'chirasizmi?"))return;P=P.filter(p=>p.id!==id);save();render();openLed(sid);toast("To'lov o'chirildi")}
-function openLed(id){const s=S.find(x=>x.id===id);if(!s)return;const L=ledger(s);
- const td=L.reduce((a,r)=>a+r.debt,0),tp=L.reduce((a,r)=>a+r.pd,0),tu=L.reduce((a,r)=>a+(r.fut?0:r.due),0),cr=L.reduce((a,r)=>a+r.over,0);
- $("lT").textContent=s.name;$("lI").textContent=`${s.course} · ${s.branch} · ${s.period}, ${s.time} · ${s.phone} · Oylik: ${fmt(fe(s,NOW))} · ${bs(s)?"Hisob: "+ml(bs(s))+" dan":"Guruh boshlanmagan"}`+(cr?` · Ortiqcha/oldindan: ${fmt(cr)}`:"");
- $("lB").innerHTML=L.map(r=>{const[c,t]=rowSt(r);return`<tr><td>${ml(r.m)}</td><td>${fmt(r.due)}</td><td class="ok">${fmt(r.pd)}</td><td class="${r.debt?"bad":""}">${fmt(r.debt)}</td><td><span class="st ${c}">${t}</span></td></tr>`}).reverse().join("")+`<tr><td><b>JAMI</b></td><td><b>${fmt(tu)}</b></td><td class="ok"><b>${fmt(tp)}</b></td><td class="bad"><b>${fmt(td)}</b></td><td></td></tr>`;
- const H=P.filter(p=>p.sid===id).sort((a,b)=>b.date.localeCompare(a.date));
- $("lH").innerHTML=H.length?H.map(p=>`<tr><td>${esc(p.date)}</td><td>${ml(p.month)}</td><td class="ok">${fmt(p.amount)}</td><td><button class="btn sm red" onclick="delPay(${p.id},${id})"><i class="fa-solid fa-trash"></i></button></td></tr>`).join(""):`<tr><td colspan="4" class="empty">To'lovlar hali yo'q</td></tr>`;openM("mLed")}
+function openLed(id){const s=S.find(x=>x.id===id);if(!s)return;const a=acct(s),[st,tx]=stOf(a),t=curT(a);
+ $("lT").textContent=s.name;$("lI").textContent=`${s.course} · ${s.branch} · ${s.period}, ${s.time} · ${s.phone} · Paket: ${fmt(t.fee)} / ${t.lessons} dars · Hisob: ${bdate(s)} dan`;
+ $("lP").innerHTML=`O'tilgan darslar: <b>${a.L}</b>`+(a.cur?` · Joriy paket: <b>${a.cur.done}/${a.cur.size}</b> (${when()==="after"?"yana "+(a.cur.size-a.cur.done)+" dars o'tgach to'lov kerak bo'ladi":"to'lov muddati kelgan"})`:"")+` · <span class="st ${st}">${tx}</span>`;
+ $("lB").innerHTML=a.bl.map(b=>{const[c,x]=bSt(b);return`<tr><td>${b.k}-paket</td><td>${b.from}–${b.to}${b.done>0&&b.done<b.size?` <span class="hint">(${b.done}/${b.size})</span>`:""}</td><td>${fmt(b.fee)}</td><td class="ok">${fmt(b.pd)}</td><td class="${b.debt?"bad":""}">${fmt(b.debt)}</td><td>${b.dueDate?esc(b.dueDate):"-"}</td><td><span class="st ${c}">${x}</span></td></tr>`}).reverse().join("")+`<tr><td><b>JAMI</b></td><td></td><td><b>${fmt(a.dueSum)}</b></td><td class="ok"><b>${fmt(a.paid)}</b></td><td class="bad"><b>${fmt(a.debt)}</b></td><td></td><td></td></tr>`;
+ const H=P.filter(p=>p.sid===id).sort((x,y)=>y.date.localeCompare(x.date));
+ $("lH").innerHTML=H.length?H.map(p=>`<tr><td>${esc(p.date)}</td><td class="ok">${fmt(p.amount)}</td><td><button class="btn sm red" onclick="delPay(${p.id},${id})"><i class="fa-solid fa-trash"></i></button></td></tr>`).join(""):`<tr><td colspan="3" class="empty">To'lovlar hali yo'q</td></tr>`;openM("mLed")}
 
 /* ===== DASHBOARD ===== */
-function rDash(){const gs=new Set(S.map(s=>[s.branch,s.course,s.period,s.time].join("|")));
+function rDash(){const gs=new Set(S.map(gk));
  $("cStu").textContent=S.length;$("cGrp").textContent=gs.size;$("cRevL").textContent=ml(NOW)+" tushumi";
- $("cRev").textContent=fmt(P.filter(p=>p.month===NOW).reduce((a,p)=>a+p.amount,0));
+ $("cRev").textContent=fmt(P.filter(p=>p.date.startsWith(NOW)).reduce((a,p)=>a+p.amount,0));
  const D=S.map(s=>({s,d:totalDebt(s)})).filter(x=>x.d>0).sort((a,b)=>b.d-a.d);$("cDebt").textContent=fmt(D.reduce((a,x)=>a+x.d,0));
  $("tDebtors").innerHTML=D.length?D.slice(0,6).map(x=>`<tr><td><b>${esc(x.s.name)}</b></td><td>${esc(x.s.course)}</td><td class="bad">${fmt(x.d)}</td></tr>`).join(""):`<tr><td colspan="3" class="empty">Qarzdorlar yo'q</td></tr>`;
  $("tRecent").innerHTML=S.length?[...S].reverse().slice(0,6).map(s=>`<tr><td><b>${esc(s.name)}</b></td><td>${esc(s.course)}</td><td>${esc(s.branch)}</td></tr>`).join(""):`<tr><td colspan="3" class="empty">Hozircha o'quvchilar yo'q</td></tr>`}
@@ -342,22 +373,27 @@ function rDash(){const gs=new Set(S.map(s=>[s.branch,s.course,s.period,s.time].j
 function rCharts(){if(!$("stats").classList.contains("active")||typeof Chart==="undefined")return;
  const ms=[];let m=NOW;for(let i=0;i<12;i++){ms.unshift(m);m=+m.slice(5)===1?(+m.slice(0,4)-1)+"-12":m.slice(0,4)+"-"+String(+m.slice(5)-1).padStart(2,"0")}
  const dk=document.body.classList.contains("dark"),tc=dk?"#cbd5e1":"#475569",gc=dk?"#334155":"#e5e7eb",lab=ms.map(x=>MN[+x.slice(5)-1].slice(0,3)+" "+x.slice(2,4));
+ const mon=d=>String(d).slice(0,7),ac={},pm={},ln={},act={};
+ S.forEach(s=>{acct(s).bl.forEach(b=>{if(b.due&&b.dueDate)ac[mon(b.dueDate)]=(ac[mon(b.dueDate)]||0)+b.fee});new Set(lessonDates(s).map(mon)).forEach(x=>{act[x]=(act[x]||0)+1})});
+ P.forEach(p=>{pm[mon(p.date)]=(pm[mon(p.date)]||0)+p.amount});
+ G.forEach(g=>g.lessons.forEach(l=>{ln[mon(l.date)]=(ln[mon(l.date)]||0)+1}));
  const mk2=(id,cfg)=>{charts[id]&&charts[id].destroy();cfg.options={responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:tc}}},scales:{x:{ticks:{color:tc},grid:{color:gc}},y:{beginAtZero:true,ticks:{color:tc,precision:0},grid:{color:gc}}}};charts[id]=new Chart($(id),cfg)};
- mk2("ch1",{type:"line",data:{labels:lab,datasets:[{label:"O'quvchilar soni",data:ms.map(x=>S.filter(s=>bs(s)&&bs(s)<=x).length),borderColor:"#6366f1",backgroundColor:"rgba(99,102,241,.18)",fill:true,tension:.3}]}});
- mk2("ch2",{type:"bar",data:{labels:lab,datasets:[{label:"Kutilgan",data:ms.map(x=>S.reduce((a,s)=>a+dueAt(s,x),0)),backgroundColor:"#94a3b8"},{label:"To'langan",data:ms.map(x=>P.filter(p=>p.month===x).reduce((a,p)=>a+p.amount,0)),backgroundColor:"#10b981"}]}})}
+ mk2("ch1",{type:"line",data:{labels:lab,datasets:[{label:"Dars olgan o'quvchilar",data:ms.map(x=>act[x]||0),borderColor:"#6366f1",backgroundColor:"rgba(99,102,241,.18)",fill:true,tension:.3}]}});
+ mk2("ch2",{type:"bar",data:{labels:lab,datasets:[{label:"Hisoblangan",data:ms.map(x=>ac[x]||0),backgroundColor:"#94a3b8"},{label:"To'langan",data:ms.map(x=>pm[x]||0),backgroundColor:"#10b981"}]}});
+ mk2("ch3",{type:"bar",data:{labels:lab,datasets:[{label:"O'tilgan darslar",data:ms.map(x=>ln[x]||0),backgroundColor:"#6366f1"}]}})}
 
-let PR=[],PM=NOW;
+let PR=[];
 function dl(name,text,type){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
 const cell=v=>{v=String(v??"");if(/^[=@]|^[+\-](?!\d)/.test(v))v="'"+v;return'"'+v.replace(/"/g,'""')+'"'};
-function csvText(){const H=["F.I.O","Yo'nalish","Filial","Davra","Vaqt","Telefon","Oy","Oylik","To'langan","Qarz","Holat"];
- return"\ufeff"+[H,...PR.map(r=>[r.s.name,r.s.course,r.s.branch,r.s.period,r.s.time,r.s.phone,ml(PM),r.s.fee,r.pd,r.debt,r.txt])].map(a=>a.map(cell).join(";")).join("\r\n")}
-function csvPay(){if(!PR.length)return toast("Yuklash uchun ma'lumot yo'q",1);dl("tolovlar-"+PM+".csv",csvText(),"text/csv;charset=utf-8")}
-function backup(){dl("zaxira-"+today()+".json",JSON.stringify({exported:new Date().toISOString(),students:S,payments:P},null,1),"application/json")}
+function csvText(){const H=["F.I.O","Yo'nalish","Filial","Davra","Vaqt","Telefon","Paket narxi","Paketdagi darslar","O'tilgan darslar","Hisoblangan","To'langan","Qarz","Holat"];
+ return"\ufeff"+[H,...PR.map(r=>{const t=curT(r.a);return[r.s.name,r.s.course,r.s.branch,r.s.period,r.s.time,r.s.phone,t.fee,t.lessons,r.a.L,r.a.dueSum,r.a.paid,r.a.debt,r.txt]})].map(a=>a.map(cell).join(";")).join("\r\n")}
+function csvPay(){if(!PR.length)return toast("Yuklash uchun ma'lumot yo'q",1);dl("tolovlar-"+today()+".csv",csvText(),"text/csv;charset=utf-8")}
+function backup(){dl("zaxira-"+today()+".json",JSON.stringify({exported:new Date().toISOString(),students:S,payments:P,groups:G},null,1),"application/json")}
 function render(){rDash();rStudents();rGroups();rPay();rCharts()}
 $("fB").innerHTML=`<option value="">Barcha filiallar</option>`+opts(CFG.branches);$("pB").innerHTML=$("fB").innerHTML;
 $("fC").innerHTML=`<option value="">Barcha yo'nalishlar</option>`+opts(Object.keys(CFG.courses));$("pC").innerHTML=$("fC").innerHTML;
 $("sCourse").innerHTML=opts(Object.keys(CFG.courses));$("sBranch").innerHTML=opts(CFG.branches);$("sPeriod").innerHTML=opts(CFG.periods);$("sTime").innerHTML=opts(CFG.times);
-$("pM").value=NOW;["sCourse","sBranch","sPeriod","sTime"].forEach(i=>$(i).addEventListener("change",gInfoUpd));
+["sCourse","sBranch","sPeriod","sTime"].forEach(i=>$(i).addEventListener("change",gInfoUpd));
 let DIP=null;
 addEventListener("beforeinstallprompt",e=>{e.preventDefault();DIP=e;$("inst").style.display="flex"});
 $("inst").onclick=async()=>{if(!DIP)return;DIP.prompt();try{await DIP.userChoice}catch(e){}DIP=null;$("inst").style.display="none"};
