@@ -14,10 +14,11 @@ function db() {
 const send = (c, o) => ({ statusCode: c, headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }, body: JSON.stringify(o) });
 const th = t => crypto.createHash("sha256").update(t).digest("hex");
 const str = (v, n) => String(v ?? "").slice(0, n), num = v => Number.isFinite(+v) ? +v : 0, MK = /^20\d{2}-(0[1-9]|1[0-2])$/;
+const DD = /^\d{4}-\d{2}-\d{2}$/, DT = /^20\d{2}-(0[1-9]|1[0-2])(-(0[1-9]|[12]\d|3[01]))?$/;
 const cs = s => {
   const start = MK.test(s.start) ? s.start : "2000-01", fee = Math.max(0, num(s.fee));
-  const fees = (Array.isArray(s.fees) ? s.fees : []).slice(0, 120).map(x => ({ from: MK.test(x && x.from) ? x.from : start, fee: Math.max(0, num(x && x.fee)) })).sort((p, q) => p.from.localeCompare(q.from));
-  return { id: num(s.id), name: str(s.name, 100), phone: str(s.phone, 30), fee, fees: fees.length ? fees : [{ from: start, fee }], start, bstart: MK.test(s.bstart) ? s.bstart : "", course: str(s.course, 60), branch: str(s.branch, 40), period: str(s.period, 20), time: str(s.time, 10), desc: str(s.desc, 500) };
+  const tariffs = (Array.isArray(s.tariffs) ? s.tariffs : []).slice(0, 60).map(x => ({ from: Math.min(1000, Math.max(1, Math.floor(num(x && x.from)))), fee: Math.max(0, num(x && x.fee)), lessons: Math.min(500, Math.max(1, Math.floor(num(x && x.lessons)) || 12)) })).sort((p, q) => p.from - q.from);
+  return { id: num(s.id), name: str(s.name, 100), phone: str(s.phone, 30), fee, tariffs, start, joined: DD.test(s.joined) ? s.joined : "", bstart: DT.test(s.bstart) ? s.bstart : "", course: str(s.course, 60), branch: str(s.branch, 40), period: str(s.period, 20), time: str(s.time, 10), desc: str(s.desc, 500) };
 };
 const cp = p => ({ id: num(p.id), sid: num(p.sid), month: MK.test(p.month) ? p.month : "2000-01", amount: Math.max(0, Math.round(num(p.amount))), date: str(p.date, 10) });
 const snap = u => ({ students: u.students, payments: u.payments, groups: u.groups || [], version: u.version });
@@ -63,7 +64,7 @@ exports.handler = async (event) => {
       if (!b || !Array.isArray(b.students) || !Array.isArray(b.payments) || !Number.isInteger(b.version) || b.students.length > 20000 || b.payments.length > 100000) return send(400, { error: "Noto'g'ri ma'lumot" });
       const st = b.students.map(cs), ids = new Set(st.map(x => x.id)), pay = b.payments.map(cp).filter(p => ids.has(p.sid) && p.amount > 0);
       const set = { students: st, payments: pay };
-      if (Array.isArray(b.groups)) set.groups = b.groups.slice(0, 5000).map(g => ({ key: str(g && g.key, 200), start: MK.test(g && g.start) ? g.start : "" }));
+      if (Array.isArray(b.groups)) set.groups = b.groups.slice(0, 5000).map(g => ({ key: str(g && g.key, 200), start: DT.test(g && g.start) ? g.start : "", lessons: (Array.isArray(g && g.lessons) ? g.lessons : []).slice(0, 3000).filter(l => l && DD.test(l.date)).map(l => ({ id: num(l.id), date: l.date })) }));
       const r = await Users.updateOne({ _id: s.login, version: b.version }, { $set: set, $inc: { version: 1 } });
       if (!r.matchedCount) { const u = await Users.findOne({ _id: s.login }); return send(409, snap(u)); }
       return send(200, { version: b.version + 1 });
